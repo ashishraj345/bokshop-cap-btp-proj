@@ -1,0 +1,49 @@
+{
+  "name": "bookshop",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@cap-js/hana": "^3.1.2",
+    "@sap-cloud-sdk/connectivity": "^4.9.1",
+    "@sap-cloud-sdk/http-client": "^4.9.1",
+    "@sap-cloud-sdk/resilience": "^4.9.1",
+    "@sap/approuter": "^23.3.0",
+    "@sap/cds": "^10",
+    "@sap/xssec": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "destinations": true,
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "viewer": {
+            "roles": [
+              "Viewer"
+            ]
+          },
+          "admin": {
+            "roles": [
+              "Viewer",
+              "Admin"
+            ]
+          }
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa",
+        "db": {
+          "kind": "hana"
+        }
+      }
+    }
+  }
+}

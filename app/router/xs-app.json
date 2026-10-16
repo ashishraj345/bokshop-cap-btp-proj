@@ -1,0 +1,21 @@
+
+{
+  "welcomeFile": "/browse/",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/browse/(.*)$",
+      "target": "/browse/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    },
+    {
+      "source": "^/admin/(.*)$",
+      "target": "/admin/$1",
+      "destination": "srv-api",
+      "authenticationType": "xsuaa",
+      "csrfProtection": true
+    }
+  ]
+}

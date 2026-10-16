@@ -1,0 +1,104 @@
+### CatalogService.read Books
+GET http://localhost:4004/admin/Books?
+&$select=*
+&$filter=ID eq 201
+
+### AdminService.read Authors
+GET http://localhost:4004/admin/Authors?
+&$select=ID,name
+&$expand=books($select=ID,title)
+Authorization: Basic alice:
+
+### 
+POST http://localhost:4004/admin/Books
+Content-Type: application/json
+Accept: application/json
+{
+"ID": 301,
+"title": "Learning SAP CAP",
+"author_ID": 101,
+"genre_ID": 11,
+"stock": 25,
+"price": 19.99,
+"currency_code": "USD"
+}
+
+### AdminService.update Book price
+PATCH http://localhost:4004/admin/Books(201)
+Content-Type: application/json
+Accept: application/json
+
+{
+"price": 100
+}
+
+
+###
+DELETE  http://localhost:4004/admin/Books(201)
+Content-Type: application/json
+Accept: application/json
+
+###
+DELETE  http://localhost:4004/admin/Books()
+Content-Type: application/json
+Accept: application/json
+
+
+
+###
+POST http://localhost:4004/admin/Books
+Content-Type: application/json
+Accept: application/json
+
+{
+  "ID": 302,
+  "title": "Invalid Price Test",
+  "author_ID": 101,
+  "genre_ID": 11,
+  "stock": 5,
+  "price": 20,
+  "currency_code": "USD"
+}
+
+
+### Test ON handler
+GET http://localhost:4004/admin/Books?$top=3
+Accept: application/json
+
+### Test AFTER handler
+GET http://localhost:4004/browse/Books?$select=ID,title,stock
+Accept: application/json
+
+### Test custom function: calculate discount
+GET http://localhost:4004/admin/calculateDiscount(price=100,percentage=10)
+Accept: application/json
+
+####
+POST http://localhost:4004/admin/applyDiscount
+Content-Type: application/json
+Accept: application/json
+
+{
+"ID": 201,
+"percentage": 10
+}
+
+
+### 1. Get a remote post using a custom function
+GET http://localhost:4004/admin/getRemotePost(postId=1)
+Accept: application/json
+
+### 2. Create a remote post using a custom action
+POST http://localhost:4004/admin/createRemotePost
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userId": 1,
+  "title": "Learning SAP CAP Destinations",
+  "body": "Testing custom actions with a remote REST API."
+}
+
+####
+GET https://2a662c62trial-dev-bookshop-srv.cfapps.us10-001.hana.ondemand.com/admin/getRemotePost(postId=1)
+Accept: application/json

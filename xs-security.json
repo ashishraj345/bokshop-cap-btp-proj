@@ -1,0 +1,53 @@
+
+{
+  "xsappname": "bookshop-2a662c62trial-dev",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Read book catalogue data"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Access bookshop administration"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Read-only access to the book catalogue",
+      "scope-references": [
+        "$XSAPPNAME.Viewer"
+      ]
+    },
+    {
+      "name": "Admin",
+      "description": "Administrative access to bookshop administration",
+      "scope-references": [
+        "$XSAPPNAME.Viewer",
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "BookshopViewer",
+      "description": "Read-only access to the Bookshop application",
+      "role-template-references": [
+        "$XSAPPNAME.Viewer"
+      ]
+    },
+    {
+      "name": "BookshopAdmin",
+      "description": "Administrative access to the Bookshop application",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://2a662c62trial-dev-bookshop-approuter.cfapps.us10-001.hana.ondemand.com/**"
+    ]
+  }
+}
